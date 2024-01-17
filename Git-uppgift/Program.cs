@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Program
 {
@@ -183,7 +184,7 @@ class Program
                         Console.Write("Skriv in texten du vill dekryptera: ");
                         text = Console.ReadLine();
                         decrypt = FuncCeasarDecrypt(text, chiffer);
-                        // Implementera din dekrypteringslogik här
+                        Console.WriteLine("Din text med cipher {0} blir: {1}",chiffer, decrypt);
                         break;
                     }
                 default:
@@ -283,22 +284,35 @@ class Program
 
     static string FuncCeasarCrypt(string mening, int nummer)
     {
-        string krypt = "";
-        // Skapa en funktion som krypterar en sträng med hjälp av ceasarkryptering.
-        // Ceasar-kryptering fungerar på så sätt att man tar en bokstav i taget och flyttar fram den ett visst antal bokstäver framåt.
-        // Om jag vill göra en kryptering på en sträng behöver jag först välja antalet tecken jag vill flytta i strängen. I mitt exempel väljer jag 10 steg.
-        // "Tobias äger" börjar med att jag kollar 10 bokstäver fram på stora T i en ASCII-tabell vilket blir tecknet ^. Sen fortsätter jag bokstav för bokstav.
-        // Färdig kryptering av strängen "Tobias äger": ^ylsk}*Äqo|
-        // Ovanstående är gjort för hand men är förhoppningsvis rätt. Varje bokstav 10 steg framåt i ASCII-tabellen.
-        // Returnera krypterad text
-        return krypt;
+        List<char> kryptLista = new List<char>();
+        foreach (char let in mening) {
+            int asciiValue = Convert.ToInt32(let);
+            int modifiedAsciiValue = asciiValue + nummer;
+            char cipheredChar = Convert.ToChar(modifiedAsciiValue);
+            kryptLista.Add(cipheredChar);
+        }
+
+        string modifiedString = new string(kryptLista.ToArray());
+
+
+        return modifiedString;
     }
 
     static string FuncCeasarDecrypt(string mening, int nummer)
     {
-        string decrypt = "";
-        // Skapa en motsatt funktion som ovan, men som istället för att gå "nummer" steg framåt i ASCII-tabellen, gå istället bakåt.
-        return decrypt;
+        List<char> kryptLista = new List<char>();
+        foreach (char let in mening) {
+            int asciiValue = Convert.ToInt32(let);
+            int modifiedAsciiValue = asciiValue - nummer;
+            char cipheredChar = Convert.ToChar(modifiedAsciiValue);
+            kryptLista.Add(cipheredChar);
+        }
+
+        string modifiedString = new string(kryptLista.ToArray());
+
+
+        return modifiedString;
+
     }
 
     
